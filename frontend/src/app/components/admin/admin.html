@@ -1,0 +1,149 @@
+<div class="admin-container">
+  <h1>⚙️ Admin Panel</h1>
+
+  <div *ngIf="hiba" class="hiba">{{ hiba }}</div>
+  <div *ngIf="siker" class="siker">{{ siker }}</div>
+
+  <!-- Tab váltó -->
+  <div class="tab-sor">
+    <button
+      class="tab-gomb"
+      [class.aktif]="aktifTab === 'filmek'"
+      (click)="tabValtas('filmek')">
+      🎬 Filmek
+    </button>
+    <button
+      class="tab-gomb"
+      [class.aktif]="aktifTab === 'vetitesek'"
+      (click)="tabValtas('vetitesek')">
+      🎞️ Vetítések
+    </button>
+  </div>
+
+  <!-- FILMEK TAB -->
+  <div *ngIf="aktifTab === 'filmek'">
+
+    <!-- Új film hozzáadása -->
+    <div class="form-box">
+      <h2>Új film hozzáadása</h2>
+
+      <div class="form-group">
+        <label>Film címe</label>
+        <input type="text" [(ngModel)]="ujFilm.cim" placeholder="pl. Inception" />
+      </div>
+
+      <div class="form-group">
+        <label>Leírás</label>
+        <textarea [(ngModel)]="ujFilm.leiras" placeholder="Film leírása..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Műfaj</label>
+        <input type="text" [(ngModel)]="ujFilm.mufaj" placeholder="pl. sci-fi" />
+      </div>
+
+      <div class="form-group">
+        <label>Hossz (perc)</label>
+        <input type="number" [(ngModel)]="ujFilm.hosszPercben" />
+      </div>
+
+      <div class="form-group">
+        <label>Korhatár</label>
+        <select [(ngModel)]="ujFilm.korhatar">
+          <option value="mindenkinek">Mindenkinek</option>
+          <option value="6">6+</option>
+          <option value="12">12+</option>
+          <option value="16">16+</option>
+          <option value="18">18+</option>
+        </select>
+      </div>
+
+      <button class="hozzaad-gomb" (click)="filmHozzaadasa()">
+        + Film hozzáadása
+      </button>
+    </div>
+
+    <!-- Filmek listája -->
+    <div class="lista-box">
+      <h2>Filmek listája</h2>
+      <div class="lista-elem" *ngFor="let film of filmek">
+        <div class="lista-info">
+          <strong>{{ film.cim }}</strong>
+          <span>{{ film.mufaj }} | {{ film.hosszPercben }} perc | {{ film.korhatar }}+</span>
+        </div>
+        <button class="torles-gomb" (click)="filmTorlese(film._id)">
+          🗑️ Törlés
+        </button>
+      </div>
+      <div *ngIf="filmek.length === 0" class="ures">
+        Még nincs film az adatbázisban.
+      </div>
+    </div>
+  </div>
+
+  <!-- VETÍTÉSEK TAB -->
+  <div *ngIf="aktifTab === 'vetitesek'">
+
+    <!-- Új vetítés hozzáadása -->
+    <div class="form-box">
+      <h2>Új vetítés hozzáadása</h2>
+
+      <div class="form-group">
+        <label>Film kiválasztása</label>
+        <select [(ngModel)]="ujVetites.film">
+          <option value="">-- Válassz filmet --</option>
+          <option *ngFor="let film of filmek" [value]="film._id">
+            {{ film.cim }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Dátum és időpont</label>
+        <input type="datetime-local" [(ngModel)]="ujVetites.datum" />
+      </div>
+
+      <div class="form-group">
+        <label>Terem</label>
+        <input type="text" [(ngModel)]="ujVetites.terem" placeholder="pl. 1-es terem" />
+      </div>
+
+      <div class="form-group">
+        <label>Összes ülőhely</label>
+        <input type="number" [(ngModel)]="ujVetites.osszesUlohely" />
+      </div>
+
+      <div class="form-group">
+        <label>Jegyár (Ft)</label>
+        <input type="number" [(ngModel)]="ujVetites.jegyAr" />
+      </div>
+
+      <button class="hozzaad-gomb" (click)="vetitesHozzaadasa()">
+        + Vetítés hozzáadása
+      </button>
+    </div>
+
+    <!-- Vetítések listája -->
+    <div class="lista-box">
+      <h2>Vetítések listája</h2>
+      <div class="lista-elem" *ngFor="let vetites of vetitesek">
+        <div class="lista-info">
+          <strong>{{ vetites.film?.cim }}</strong>
+          <span>
+            {{ vetites.datum | date:'yyyy.MM.dd HH:mm' }} |
+            {{ vetites.terem }} |
+            {{ vetites.szabadUlohely }}/{{ vetites.osszesUlohely }} hely |
+            {{ vetites.jegyAr }} Ft
+          </span>
+        </div>
+        <button class="torles-gomb" (click)="vetitesTorlese(vetites._id)">
+          🗑️ Törlés
+        </button>
+      </div>
+      <div *ngIf="vetitesek.length === 0" class="ures">
+        Még nincs vetítés az adatbázisban.
+      </div>
+    </div>
+  </div>
+
+</div>

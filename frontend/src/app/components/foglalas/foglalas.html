@@ -1,0 +1,61 @@
+<div class="foglalas-container">
+
+  <button class="vissza-gomb" (click)="vissza()">
+    ← Vissza
+  </button>
+
+  <h1>🎫 Foglalásaim</h1>
+
+  <div *ngIf="toltesAlatt" class="toltes">
+    Betöltés...
+  </div>
+
+  <div *ngIf="hiba" class="hiba">{{ hiba }}</div>
+  <div *ngIf="siker" class="siker">{{ siker }}</div>
+
+  <!-- Aktuális vetítés adatai -->
+  <div class="vetites-info" *ngIf="vetites && !toltesAlatt">
+    <h2>Kiválasztott vetítés</h2>
+    <div class="vetites-kartya">
+      <p><strong>🎬 Film:</strong> {{ vetites.film.cim }}</p>
+      <p><strong>📅 Időpont:</strong> {{ vetites.datum | date:'yyyy.MM.dd HH:mm' }}</p>
+      <p><strong>🎭 Terem:</strong> {{ vetites.terem }}</p>
+      <p><strong>💺 Szabad helyek:</strong> {{ vetites.szabadUlohely }} db</p>
+      <p><strong>🎫 Jegyár:</strong> {{ vetites.jegyAr }} Ft</p>
+    </div>
+  </div>
+
+  <!-- Saját foglalások listája -->
+  <div class="foglalasok-lista" *ngIf="foglalasok.length > 0">
+    <h2>Aktív foglalásaim</h2>
+
+    <div class="foglalas-kartya" *ngFor="let foglalas of foglalasok">
+      <div class="foglalas-info">
+        <p><strong>🎬 Film:</strong> {{ foglalas.vetites?.film?.cim }}</p>
+        <p><strong>📅 Időpont:</strong>
+          {{ foglalas.vetites?.datum | date:'yyyy.MM.dd HH:mm' }}
+        </p>
+        <p><strong>💺 Székek:</strong> {{ foglalas.ulohelyek.join(', ') }}</p>
+        <p><strong>💰 Végösszeg:</strong> {{ foglalas.vegosszeg }} Ft</p>
+        <span
+          class="statusz"
+          [class.aktiv]="foglalas.statusz === 'aktív'"
+          [class.lemondott]="foglalas.statusz === 'lemondott'">
+          {{ foglalas.statusz }}
+        </span>
+      </div>
+
+      <button
+        class="lemondas-gomb"
+        *ngIf="foglalas.statusz === 'aktív'"
+        (click)="foglalasMondas(foglalas._id)">
+        Lemondás
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="foglalasok.length === 0 && !toltesAlatt" class="ures">
+    Még nincs foglalásod.
+  </div>
+
+</div>

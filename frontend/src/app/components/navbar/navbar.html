@@ -1,0 +1,25 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a routerLink="/home">🎬 MoziJegy</a>
+  </div>
+
+  <div class="navbar-links">
+    <a routerLink="/home">Főoldal</a>
+    <a routerLink="/filmek">Filmek</a>
+
+    <!-- Csak admin látja -->
+    <a *ngIf="authService.isAdmin()" routerLink="/admin">Admin</a>
+
+    <!-- Ha be van jelentkezve -->
+    <ng-container *ngIf="authService.isLoggedIn(); else vendeg">
+      <span class="user-nev">👤 {{ authService.getUser()?.nev }}</span>
+      <button (click)="logout()">Kijelentkezés</button>
+    </ng-container>
+
+    <!-- Ha nincs bejelentkezve -->
+    <ng-template #vendeg>
+      <a routerLink="/login">Bejelentkezés</a>
+      <a routerLink="/register">Regisztráció</a>
+    </ng-template>
+  </div>
+</nav>

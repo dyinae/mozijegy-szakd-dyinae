@@ -1,0 +1,84 @@
+<div class="vetitesek-container">
+
+  <button class="vissza-gomb" (click)="vissza()">
+    ← Vissza
+  </button>
+
+  <div *ngIf="toltesAlatt" class="toltes">
+    Betöltés...
+  </div>
+
+  <div *ngIf="hiba" class="hiba">{{ hiba }}</div>
+  <div *ngIf="siker" class="siker">{{ siker }}</div>
+
+  <div *ngIf="vetites && !toltesAlatt">
+
+    <!-- Vetítés fejléc -->
+    <div class="vetites-fejlec">
+      <h1>{{ vetites.film.cim }}</h1>
+      <div class="vetites-meta">
+        <span>📅 {{ vetites.datum | date:'yyyy.MM.dd HH:mm' }}</span>
+        <span>🎭 {{ vetites.terem }}</span>
+        <span>💺 {{ vetites.szabadUlohely }} szabad hely</span>
+        <span>🎫 {{ vetites.jegyAr }} Ft / jegy</span>
+      </div>
+    </div>
+
+    <!-- Mozi terem - ülőhelyek -->
+    <div class="terem-container">
+
+      <!-- Vászon -->
+      <div class="vaszon-container">
+        <div class="vaszon-felirat">🎬 VÁSZON</div>
+        <div class="vaszon-csik"></div>
+      </div>
+
+      <div class="ulohely-grid">
+        <div
+          *ngFor="let szek of osszesSzek"
+          class="szek"
+          [class.kivalasztott]="kivalasztottE(szek)"
+          [class.foglalt]="vetites.foglaltSzekek.includes(szek)"
+          (click)="!vetites.foglaltSzekek.includes(szek) && szekToggle(szek)">
+          {{ szek }}
+        </div>
+      </div>
+
+      <!-- Jelmagyarázat -->
+      <div class="jelmagya">
+        <span><span class="szek-minta szabad"></span> Szabad</span>
+        <span><span class="szek-minta kivalasztott"></span> Kiválasztott</span>
+        <span><span class="szek-minta foglalt"></span> Foglalt</span>
+      </div>
+    </div>
+
+    <!-- Foglalás összesítő -->
+    <div class="foglalas-osszesito" *ngIf="kivalasztottSzekek.length > 0">
+      <h3>Foglalás összesítő</h3>
+      <p>Kiválasztott székek: {{ kivalasztottSzekek.sort().join(', ') }}</p>
+      <p>Jegyek száma: {{ kivalasztottSzekek.length }} db</p>
+      <p class="vegosszeg">Végösszeg: {{ vegosszeg }} Ft</p>
+      <button class="foglalas-gomb" (click)="foglalas()">
+        Foglalás megerősítése
+      </button>
+    </div>
+
+  </div>
+</div>
+<div class="sajat-foglalasok" *ngIf="sajatFoglalasok.length > 0">
+  <h3>🎫 Saját foglalásaim</h3>
+  <div class="foglalas-elem" *ngFor="let foglalas of sajatFoglalasok">
+    <div class="foglalas-adatok">
+      <p><strong>Székek:</strong> {{ foglalas.ulohelyek.join(', ') }}</p>
+      <p><strong>Végösszeg:</strong> {{ foglalas.vegosszeg }} Ft</p>
+      <p><strong>Státusz:</strong>
+        <span class="statusz aktiv">{{ foglalas.statusz }}</span>
+      </p>
+    </div>
+    <button
+      class="lemondas-gomb"
+      (click)="foglalasMondas(foglalas._id)">
+      Lemondás
+    </button>
+  </div>
+</div>

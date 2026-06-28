@@ -1,0 +1,47 @@
+<div class="register-container">
+  <div class="register-box">
+    <h2>🎬 Regisztráció</h2>
+
+    <div *ngIf="hiba" class="hiba">
+      {{ hiba }}
+    </div>
+
+    <div class="form-group">
+      <label>Teljes név</label>
+      <input
+        type="text"
+        [(ngModel)]="nev"
+        placeholder="Kovács István"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Jelszó</label>
+      <input
+        type="password"
+        [(ngModel)]="jelszo"
+        placeholder="minimum 6 karakter"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Születési dátum</label>
+      <input
+        type="date"
+        [(ngModel)]="szuletesiDatum"
+      />
+    </div>
+
+    <button
+      class="register-gomb"
+      (click)="register()"
+      [disabled]="toltesAlatt">
+      {{ toltesAlatt ? 'Regisztráció...' : 'Regisztráció' }}
+    </button>
+
+    <p class="login-link">
+      Már van fiókod?
+      <a routerLink="/login">Jelentkezz be!</a>
+    </p>
+  </div>
+</div>

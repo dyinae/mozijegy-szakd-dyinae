@@ -1,0 +1,41 @@
+.home-container {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+.hero {
+  text-align: center;
+  color: white;
+  padding: 2rem;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.hero h2 {
+  font-size: 1.5rem;
+  color: #a8a8b3;
+  margin-bottom: 2rem;
+}
+
+.filmek-gomb {
+  display: inline-block;
+  background: #e94560;
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: all 0.3s;
+}
+
+.filmek-gomb:hover {
+  background: #c73652;
+  transform: scale(1.05);
+}

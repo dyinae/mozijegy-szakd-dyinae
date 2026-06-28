@@ -1,0 +1,42 @@
+<div class="filmek-container">
+  <h1>🎬 Aktuális filmek</h1>
+
+  <div *ngIf="toltesAlatt" class="toltes">
+    Filmek betöltése...
+  </div>
+
+  <div *ngIf="hiba" class="hiba">
+    {{ hiba }}
+  </div>
+
+  <div class="filmek-grid" *ngIf="!toltesAlatt && !hiba">
+    <div class="film-kartya" *ngFor="let film of filmek">
+
+      <div class="film-plakat">🎞️</div>
+
+      <div class="film-info">
+        <h2>{{ film.cim }}</h2>
+
+        <div class="film-meta-sor">
+          <p><strong>Műfaj:</strong> {{ film.mufaj }}</p>
+          <p><strong>Leírás:</strong> {{ film.leiras }}</p>
+          <p><strong>Időtartam:</strong> {{ film.hosszPercben }} perc</p>
+          <p><strong>Korhatár:</strong>
+            <span class="korhatar-badge">
+              {{ film.korhatar === 'mindenkinek' ? 'Mindenkinek' : film.korhatar + '+' }}
+            </span>
+          </p>
+        </div>
+
+        <button class="jegy-gomb" (click)="vetitesekMegtekintese(film._id)">
+          Jegyet foglalok
+        </button>
+      </div>
+
+    </div>
+
+    <div *ngIf="filmek.length === 0" class="ures">
+      Jelenleg nincs elérhető film.
+    </div>
+  </div>
+</div>

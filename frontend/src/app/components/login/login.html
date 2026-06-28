@@ -1,0 +1,39 @@
+<div class="login-container">
+  <div class="login-box">
+    <h2>🎬 Bejelentkezés</h2>
+
+    <div *ngIf="hiba" class="hiba">
+      {{ hiba }}
+    </div>
+
+    <div class="form-group">
+      <label>Teljes név</label>
+      <input
+        type="text"
+        [(ngModel)]="email"
+        placeholder="Kovács István"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Jelszó</label>
+      <input
+        type="password"
+        [(ngModel)]="jelszo"
+        placeholder="••••••"
+      />
+    </div>
+
+    <button
+      class="login-gomb"
+      (click)="login()"
+      [disabled]="toltesAlatt">
+      {{ toltesAlatt ? 'Bejelentkezés...' : 'Bejelentkezés' }}
+    </button>
+
+    <p class="regisztracio-link">
+      Még nincs fiókod?
+      <a routerLink="/register">Regisztrálj itt!</a>
+    </p>
+  </div>
+</div>

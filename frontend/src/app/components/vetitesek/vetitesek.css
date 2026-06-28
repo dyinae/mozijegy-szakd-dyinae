@@ -1,0 +1,262 @@
+.vetitesek-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.vissza-gomb {
+  background: none;
+  border: 1px solid #1a1a2e;
+  color: #1a1a2e;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  transition: all 0.3s;
+}
+
+.vissza-gomb:hover {
+  background: #1a1a2e;
+  color: white;
+}
+
+.vetites-fejlec {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.vetites-fejlec h1 {
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+}
+
+.vetites-meta {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  color: #666;
+}
+
+.terem-container {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.vaszon {
+  background: #1a1a2e;
+  color: white;
+  text-align: center;
+  padding: 0.8rem;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+  font-weight: bold;
+  letter-spacing: 5px;
+}
+
+.ulohely-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.szek {
+  aspect-ratio: 1;
+  background: #e8e8e8;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: bold;
+  transition: all 0.2s;
+  color: #333;
+}
+
+.szek:hover:not(.foglalt) {
+  background: #c8e6c9;
+  transform: scale(1.1);
+}
+
+.szek.kivalasztott {
+  background: #e94560;
+  color: white;
+}
+
+.szek.foglalt {
+  background: #ccc;
+  cursor: not-allowed;
+  color: #999;
+}
+
+.jelmagya {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.jelmagya span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.szek-minta {
+  width: 20px;
+  height: 20px;
+  border-radius: 3px;
+  display: inline-block;
+}
+
+.szek-minta.szabad { background: #e8e8e8; }
+.szek-minta.kivalasztott { background: #e94560; }
+.szek-minta.foglalt { background: #ccc; }
+
+.foglalas-osszesito {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+}
+
+.foglalas-osszesito h3 {
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+}
+
+.foglalas-osszesito p {
+  color: #666;
+  margin-bottom: 0.5rem;
+}
+
+.vegosszeg {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1a1a2e !important;
+  margin-bottom: 1rem !important;
+}
+
+.foglalas-gomb {
+  width: 100%;
+  background: #e94560;
+  color: white;
+  border: none;
+  padding: 0.9rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.foglalas-gomb:hover {
+  background: #c73652;
+}
+
+.toltes, .ures {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+  font-size: 1.2rem;
+}
+
+.hiba {
+  background: #ffe0e0;
+  color: #e94560;
+  padding: 0.8rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.siker {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.8rem;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.vaszon-container {
+  margin-bottom: 2rem;
+}
+
+.vaszon-felirat {
+  text-align: center;
+  color: #1a1a2e;
+  font-weight: bold;
+  letter-spacing: 5px;
+  margin-bottom: 0.5rem;
+}
+
+.vaszon-csik {
+  height: 8px;
+  background: linear-gradient(90deg, transparent, #1a1a2e, transparent);
+  border-radius: 5px;
+  margin: 0 2rem;
+}
+.sajat-foglalasok {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+.sajat-foglalasok h3 {
+  color: #1a1a2e;
+  margin-bottom: 1rem;
+}
+
+.foglalas-elem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.foglalas-elem:last-child {
+  border-bottom: none;
+}
+
+.foglalas-adatok p {
+  color: #444;
+  margin-bottom: 0.3rem;
+}
+
+.statusz.aktiv {
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.2rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.lemondas-gomb {
+  background: none;
+  border: 1px solid #e94560;
+  color: #e94560;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.lemondas-gomb:hover {
+  background: #e94560;
+  color: white;
+}
