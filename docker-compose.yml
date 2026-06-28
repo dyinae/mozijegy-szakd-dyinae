@@ -1,0 +1,25 @@
+# ============================================================
+# docker-compose.yml - lokális teszteléshez
+# A frontend (nginx) és a backend (Node) egyszerre indítása.
+# A MongoDB továbbra is külső szolgáltatás marad (Atlas).
+# ============================================================
+
+services:
+  backend:
+    build: ./backend
+    # a backend NEM tesz közzé portot kifelé:
+    # csak a frontend nginx éri el belül, a "backend" néven.
+    environment:
+      - PORT=3000
+      - MONGO_URI=${MONGO_URI}
+      - JWT_SECRET=${JWT_SECRET}
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      # a böngészőből a http://localhost:8080 címen érjük el
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

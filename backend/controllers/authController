@@ -1,0 +1,76 @@
+const User = require('../models/User');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+
+const generateToken = (id, szerep) => {
+  return jwt.sign(
+    { id, szerep },
+    process.env.JWT_SECRET,
+    { expiresIn: '7d' }
+  );
+};
+
+const register = async (req, res) => {
+  try {
+    const { nev, jelszo, szuletesiDatum } = req.body;
+
+    const letezik = await User.findOne({ nev });
+    if (letezik) {
+      return res.status(400).json({ message: 'Ez a név már foglalt!' });
+    }
+
+    const salt = await bcrypt.genSalt(10);
+    const titkositottJelszo = await bcrypt.hash(jelszo, salt);
+
+    const user = new User({
+      nev,
+      jelszo: titkositottJelszo,
+      szuletesiDatum
+    });
+    await user.save();
+
+    const token = generateToken(user._id, user.szerep);
+
+    res.status(201).json({
+      token,
+      user: {
+        id: user._id,
+        nev: user.nev,
+        szerep: user.szerep
+      }
+    });
+  } catch (err) {
+    res.status(400).json({ message: 'Hibás adat', error: err.message });
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const { nev, jelszo } = req.body;
+
+    const user = await User.findOne({ nev });
+    if (!user) {
+      return res.status(401).json({ message: 'Hibás név vagy jelszó!' });
+    }
+
+    const helyesJelszo = await bcrypt.compare(jelszo, user.jelszo);
+    if (!helyesJelszo) {
+      return res.status(401).json({ message: 'Hibás név vagy jelszó!' });
+    }
+
+    const token = generateToken(user._id, user.szerep);
+
+    res.status(200).json({
+      token,
+      user: {
+        id: user._id,
+        nev: user.nev,
+        szerep: user.szerep
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ message: 'Szerver hiba', error: err.message });
+  }
+};
+
+module.exports = { register, login };

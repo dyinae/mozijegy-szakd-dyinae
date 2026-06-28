@@ -1,0 +1,31 @@
+# ============================================================
+# Repo gyökér .gitignore
+# A LEGFONTOSABB: a titkokat tartalmazó fájlok kizárása!
+# ============================================================
+
+# Környezeti változók / titkok - SOHA ne kerüljenek a Git-be
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# Node függőségek
+node_modules/
+**/node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build kimenetek
+dist/
+**/dist/
+.angular/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# Rendszerfájlok
+.DS_Store
+Thumbs.db
