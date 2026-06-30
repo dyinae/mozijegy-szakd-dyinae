@@ -1,0 +1,53 @@
+name: CI - Build and push images to ACR
+
+# Mikor fusson: a main branchre való push esetén,
+# de csak ha a backend vagy frontend kódja változott
+# (a manifestek vagy a README módosítása nem indít buildet).
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+      - '.github/workflows/ci.yaml'
+  # kézi indítás lehetősége a GitHub felületéről
+  workflow_dispatch:
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. A repó kódjának letöltése a runnerre
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Bejelentkezés az Azure Container Registry-be
+      #    a GitHub Secrets-ben tárolt adatokkal
+      - name: Log in to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.ACR_LOGIN_SERVER }}
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      # 3. Backend image build + push (két címke: commit SHA és latest)
+      - name: Build and push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./backend
+          push: true
+          tags: |
+            ${{ secrets.ACR_LOGIN_SERVER }}/mozi-backend:${{ github.sha }}
+            ${{ secrets.ACR_LOGIN_SERVER }}/mozi-backend:latest
+
+      # 4. Frontend image build + push (két címke: commit SHA és latest)
+      - name: Build and push frontend
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ secrets.ACR_LOGIN_SERVER }}/mozi-frontend:${{ github.sha }}
+            ${{ secrets.ACR_LOGIN_SERVER }}/mozi-frontend:latest
