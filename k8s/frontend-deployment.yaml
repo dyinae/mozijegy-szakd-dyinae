@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: moziacrdyinae.azurecr.io/mozi-frontend:v1
+          image: moziacrdyinae.azurecr.io/mozi-frontend:440a6d5f90784f33dd347128f6b110a6039d725a
           ports:
             - containerPort: 80
           resources:
