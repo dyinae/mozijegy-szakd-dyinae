@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: moziacrdyinae.azurecr.io/mozi-backend:5887e8529a14218196bb76adc5825ef17bd1ea79
+          image: moziacrdyinae.azurecr.io/mozi-backend:f6410d800f9f8a5c8a29d03c71c7f338778409c9
           ports:
             - containerPort: 3000
           env:
